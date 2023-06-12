@@ -3,7 +3,7 @@ services:
   app:
     container_name: ${APP_NAME}-node
     build:
-      context: ./${DOCKER_PATH}/node
+      context: .
     volumes:
       - ${APP_PATH}:/usr/src/app
     ports:

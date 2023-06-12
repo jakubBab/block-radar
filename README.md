@@ -1,6 +1,18 @@
 # Project Name
 
-Welcome to the dap-radar test task! 
+Welcome to the dap-radar test task! Buckle up folks!
+
+## Overview
+
+Application fetches data from pre-defined blocks from one of RPCs defined in [here](https://docs.iotex.io/reference/babel-web3-api#babel-api-endpoints). Should one rpc fail, next one will take over.
+Application is using queue service (RabbitMQ) for efficient handling. Consumers are spun with PM2. Data is stored in two collections:
+
+* blockchaindatas  -> copy of the block
+* transactionlogs  -> transactions within the block
+
+
+API service aggregates the result so that uawCount, transactionsCount, timeframe can be provided to the user.
+
 
 ## Technologies Used
 
@@ -11,16 +23,6 @@ Welcome to the dap-radar test task!
 - MongoDB
 - PM2 
 
-## Overview
-
-Application fetches data from pre-defined blocks from one of RPCs defined in [here](https://docs.iotex.io/reference/babel-web3-api#babel-api-endpoints). Should one rpc fail, next one will take over.
-Application is using queue service (RabbitMQ) for efficient handling. Consumers are spun with PM2. Data is stored in two collections: 
-
-* blockchaindatas  -> copy of the block
-* transactionlogs  -> transactions within the block 
-
-
-API service aggregates the result so that uawCount, transactionsCount, timeframe can be provided to the user.
 
 ## Prerequisites
 
@@ -69,7 +71,7 @@ To get started with the Project Name, follow the instructions below:
 
    * Start index.js
         ```bash
-      npm index.js
+      node index.js
 
  
 
