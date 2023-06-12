@@ -1,0 +1,4 @@
+api_metric:
+  path: /api/contract/metrics
+  controller: App\Metric\Controller\MetricController::addressMetrics
+  methods: GET|HEAD

@@ -1,0 +1,50 @@
+version: "3.3"
+services:
+  app:
+    container_name: ${APP_NAME}-node
+    build:
+      context: ./${DOCKER_PATH}/node
+    volumes:
+      - ${APP_PATH}:/usr/src/app
+    ports:
+      - '3000:3000'
+  mongo:
+    container_name: ${APP_NAME}-mongo
+    image: mongo
+    volumes:
+      - ${DOCKER_PATH}/data:/data/db
+    ports:
+      - "27017:27017"
+  php-fpm:
+    container_name: ${APP_NAME}-php-fpm
+    build:
+      context: ./${DOCKER_PATH}/php-fpm
+    depends_on:
+      - mongo
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_SECRET=${APP_SECRET}
+    volumes:
+      - ./${BACKEND_PATH}:/var/www/backend
+  nginx:
+    container_name: ${APP_NAME}-nginx
+    build:
+      context: ./${DOCKER_PATH}/nginx
+    volumes:
+      - ./${BACKEND_PATH}:/var/www/backend
+      - ./${DOCKER_PATH}/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./${DOCKER_PATH}/nginx/sites/:/etc/nginx/sites-available
+      - ./${DOCKER_PATH}/nginx/conf.d/:/etc/nginx/conf.d
+      - ./${DOCKER_PATH}/logs:/var/log/nginx
+    depends_on:
+      - php-fpm
+    ports:
+      - "8081:8081"
+  rabbitmq3:
+    container_name: ${APP_NAME}-rabbitmq
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'cookie-secret'
+    ports:
+      - 15672:15672
+      - 5672:5672
