@@ -48,14 +48,15 @@ To get started, follow the instructions below:
 3. Build and run the Docker containers:
    ```bash
    docker-compose build  
+   ```
 
    ```bash
    docker-compose up -d
-
+   ```
 4. Access the application 
    
    * For the API application: http:// 127.0.0.1:8081 
-   * For RabbitMQ UI : http://127.0.0.1:15672/#/queues (default credentials: guest/guest)
+   * For RabbitMQ UI : http://127.0.0.1:15672/#/queues (default credentials: guest:guest)
 
 
 ## Instructions 
@@ -79,8 +80,6 @@ To get started, follow the instructions below:
    * Start index.js
         ```bash
       node index.js
-
- 
 
 2. Track wallet metrics (API)
 
