@@ -46,7 +46,9 @@ To get started with the Project Name, follow the instructions below:
    cd block-radar
 
 3. Build and run the Docker containers:
-   
+   ```bash
+   docker-compose build  
+
    ```bash
    docker-compose up -d
 
@@ -65,6 +67,11 @@ To get started with the Project Name, follow the instructions below:
         ```bash
       docker exec -it  dapp-node bash
      
+   * If node_modules are not installed please execute inside the container  
+     ```bash
+     npm install
+
+
    * Start PM2 with pre-defined configuration 
         ```bash
       pm2 start ecosystem.config.js
@@ -98,3 +105,24 @@ To get started with the Project Name, follow the instructions below:
         "timeFrame": 4141
    }
     ```
+
+Available commands
+-----
+
+
+PHP-FPM container
+```php
+composer run phpunit [test suit]
+composer run phpstan [ static code analysis ]
+composer run style   [ Code styles ]
+```
+
+Node container
+```php
+pm2 start <configuration-file><default: ecosystem.config.js>
+pm2 monit [starts monitoring tool inside the container]
+pm2 stop all [stops all nodes]
+pm2 restart all [restart all nodes]
+
+```
+
