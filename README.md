@@ -33,7 +33,7 @@ Make sure you have the following tools installed on your system:
 
 ## Getting Started
 
-To get started with the Project Name, follow the instructions below:
+To get started, follow the instructions below:
 
 1. Clone the repository:
 
