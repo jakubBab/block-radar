@@ -14,5 +14,8 @@
     "web3": "^4.0.1"
   },
   "author": "Jakub Babiuch",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.42.0"
+  }
 }

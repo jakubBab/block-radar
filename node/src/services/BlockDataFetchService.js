@@ -38,7 +38,7 @@ class BlockchainDataFetcher {
                 this.getRpcData(blockNumber)
             );
 
-            if (response.hasOwnProperty('error')) {
+            if (Object.prototype.hasOwnProperty.call(response, 'error')) {
                 throw new Error(`Request to ${node} failed.`);
             }
 
@@ -51,7 +51,7 @@ class BlockchainDataFetcher {
 
     async #fetchFromBlockchain(blockNumber) {
 
-        let response, error;
+        let error;
         for (const node of this.nodes) {
             try {
                 return await this.getResponse(node, blockNumber)
