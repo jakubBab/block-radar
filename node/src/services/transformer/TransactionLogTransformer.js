@@ -3,8 +3,9 @@ const DataTransformerInterface = require('../contract/DataTransformerInterface')
 module.exports = class TransactionLogTransformer extends DataTransformerInterface {
 
     process(transaction) {
-        if (!transaction.hasOwnProperty('from')
-            || !transaction.hasOwnProperty('to')) {
+
+        if (!Object.prototype.hasOwnProperty.call(transaction, 'from')
+            || !Object.prototype.hasOwnProperty.call(transaction, 'to')) {
             throw new Error('Invalid transaction provided')
         }
 
