@@ -1,5 +1,7 @@
 const amqp = require("amqplib");
-const url = 'amqp://guest:guest@rabbitmq3:5672';
+require('dotenv').config();
+
+const url = process.env.RABBIT_URL;
 
 class RabbitMQConnector {
     isConnected = false;
