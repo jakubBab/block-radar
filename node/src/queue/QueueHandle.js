@@ -24,4 +24,4 @@ class QueueHandle {
     }
 }
 
-module.exports = new QueueHandle(rabbitMQ)
+module.exports = new QueueHandle(rabbitMQ);

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const blockChainDataSchema = new mongoose.Schema({
     blockChain: {
@@ -7,13 +7,18 @@ const blockChainDataSchema = new mongoose.Schema({
     },
     blockNumber: {
         type: Number,
-        required: true
+        required: true,
+        index: true
     },
     data: {
         type: mongoose.Schema.Types.Mixed,
         required: true
     }
-}
+},
+{autoIndex: false}
 );
 
-module.exports = mongoose.model('blockChainData', blockChainDataSchema)
+const model = mongoose.model("blockChainData", blockChainDataSchema);
+model.ensureIndexes();
+
+module.exports = model;

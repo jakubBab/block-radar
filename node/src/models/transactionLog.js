@@ -1,23 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const transactionLog = new mongoose.Schema({
-        addressFrom: {
-            type: String,
-            required: true
-        },
-        addressTo: {
-            type: String,
-            required: true
-        },
-        block: {
-            type: String,
-            required: true
-        },
-        hash: {
-            type: String,
-            required: true
-        }
+    addressFrom: {
+        type: String,
+        required: true
+    },
+    addressTo: {
+        type: String,
+        required: true,
+        index: true
+    },
+    blockNumber: {
+        type: String,
+        required: true,
+        index: true
     }
+}, {autoIndex: false}
 );
 
-module.exports = mongoose.model('transactionLog', transactionLog)
+const model  =  mongoose.model("transactionLog", transactionLog);
+model.ensureIndexes();
+
+module.exports = model;

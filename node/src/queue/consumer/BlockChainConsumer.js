@@ -1,10 +1,10 @@
-const queueHandle = require('../QueueHandle');
-const blockChainDataTransformer = require('../../services/transformer/BlockChainDataTransformer')
-const blockChainData = require('../../models/nodeTransactionModel')
-const connectDb = require('../../config/database');
+const queueHandle = require("../QueueHandle");
+const blockChainDataTransformer = require("../../services/transformer/BlockChainDataTransformer");
+const blockChainData = require("../../models/nodeTransactionModel");
+const connectDb = require("../../config/database");
 
 
-const consume_queue = 'chain-data';
+const consume_queue = "chain-data";
 
 (async () => {
     connectDb();
@@ -20,11 +20,11 @@ const consume_queue = 'chain-data';
         (message) => {
             if (message) {
                 let content = JSON.parse(message.content.toString());
-                let chainData = transformer.process(content)
+                let chainData = transformer.process(content);
 
                 blockChainData.insertMany(chainData).catch(error => {
-                    console.log(error)
-                })
+                    console.log(error);
+                });
 
                 console.log(
                     " [x] Received '%s'",

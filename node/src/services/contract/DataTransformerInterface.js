@@ -6,4 +6,4 @@ module.exports = class DataTransformerInterface {
      */
     process(transaction) { // eslint-disable-line
     }
-}
+};

@@ -1,5 +1,5 @@
 const Converter = require("./hexConverter");
-const axios = require('axios');
+const axios = require("axios");
 const {Error} = require("mongoose");
 
 class BlockchainDataFetcher {
@@ -25,7 +25,7 @@ class BlockchainDataFetcher {
                 };
             }
         } catch (error) {
-            console.error('An error occurred while fetching and saving block data:', error);
+            console.error("An error occurred while fetching and saving block data:", error);
         }
     }
 
@@ -38,7 +38,8 @@ class BlockchainDataFetcher {
                 this.getRpcData(blockNumber)
             );
 
-            if (Object.prototype.hasOwnProperty.call(response, 'error')) {
+            if (Object.prototype.hasOwnProperty.call(response, "error")) {
+                // noinspection ExceptionCaughtLocallyJS
                 throw new Error(`Request to ${node} failed.`);
             }
 
@@ -54,7 +55,7 @@ class BlockchainDataFetcher {
         let error;
         for (const node of this.nodes) {
             try {
-                return await this.getResponse(node, blockNumber)
+                return await this.getResponse(node, blockNumber);
             } catch (err) {
                 error = err;
                 console.error(`Request to ${node} failed. Trying next node...`);
@@ -67,8 +68,8 @@ class BlockchainDataFetcher {
     }
 
     getRpcData(blockNumber) {
-        let data = this.rpcData
-        data.params = [Converter.decimalToHex(blockNumber), true]
+        let data = this.rpcData;
+        data.params = [Converter.decimalToHex(blockNumber), true];
 
         return data;
     }

@@ -1,6 +1,6 @@
-require('dotenv').config();
-const BlockChainDataFetcher = require('./services/BlockDataFetchService');
-const QueueHandle = require('./queue/QueueHandle');
+require("dotenv").config();
+const BlockChainDataFetcher = require("./services/BlockDataFetchService");
+const QueueHandle = require("./queue/QueueHandle");
 
 const blockchainNodes = [
     "https://babel-api.mainnet.iotex.io",
@@ -14,12 +14,12 @@ const startBlock = parseInt(process.env.START_BLOCK);
 const endBlock = parseInt(process.env.END_BLOCK);
 
 (async () => {
-    const fetcher = new BlockChainDataFetcher(blockchainNodes)
+    const fetcher = new BlockChainDataFetcher(blockchainNodes);
     const blockDataGenerator = fetcher.fetchBlocks(startBlock, endBlock);
 
     for await (const responseData of blockDataGenerator) {
-        QueueHandle.push('transactions', JSON.stringify(responseData.responseData.result.transactions));
-        QueueHandle.push('chain-data', JSON.stringify(responseData));
+        QueueHandle.push("transactions", JSON.stringify(responseData.responseData.result.transactions));
+        QueueHandle.push("chain-data", JSON.stringify(responseData));
     }
 
-})()
+})();
