@@ -1,6 +1,6 @@
 # Block-radar
 
-Welcome to the dap-radar test task! Buckle up folks!
+Welcome to the dap-radar! Buckle up folks!
 
 ## Overview
 
