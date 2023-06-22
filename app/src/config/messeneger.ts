@@ -1,4 +1,4 @@
-import {BrokerInterface} from "./BrokerInterface.js"
+import {BrokerInterface} from "./BrokerInterface.js";
 import * as dotenv from "dotenv";
 import amqp from "amqplib";
 
@@ -9,7 +9,7 @@ dotenv.config();
 const url = process.env.RABBIT_URL;
 
 class RabbitMQConnector implements BrokerInterface {
-    private isConnected: boolean = false;
+    private isConnected = false;
     private connection: any;
     public channel: any;
     private readonly url: any;
@@ -85,4 +85,4 @@ class RabbitMQConnector implements BrokerInterface {
 }
 
 const rabbit = new  RabbitMQConnector(url);
-export {rabbit as RabbitMQConnector}
+export {rabbit as RabbitMQConnector};

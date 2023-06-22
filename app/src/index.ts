@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import {BlockchainDataFetcher} from "./services/BlockDataFetchService.js"
+import {BlockchainDataFetcher} from "./services/BlockDataFetchService.js";
 import {QueueHandle} from "./queue/QueueHandle.js";
 
 dotenv.config();

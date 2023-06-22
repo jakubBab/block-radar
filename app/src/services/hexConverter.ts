@@ -3,5 +3,5 @@ class Converter {
         return "0x" + value.toString(16);
     }
 }
-let converter = new Converter;
-export {converter as Converter}
+const converter = new Converter;
+export {converter as Converter};

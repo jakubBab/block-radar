@@ -15,4 +15,4 @@ export class BlockChainDataTransformer implements DataTransformerInterface {
         };
     }
 
-};
+}

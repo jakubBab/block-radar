@@ -8,7 +8,7 @@ const consume_queue = "chain-data";
 (async () => {
     await connectDb();
 
-    let queue = QueueHandle.queue;
+    const queue = QueueHandle.queue;
     await queue.connect();
 
     await queue.channel.assertQueue(consume_queue);
@@ -18,8 +18,8 @@ const consume_queue = "chain-data";
         consume_queue,
         (message) => {
             if (message) {
-                let content = JSON.parse(message.content.toString());
-                let chainData = transformer.process(content);
+                const content = JSON.parse(message.content.toString());
+                const chainData = transformer.process(content);
 
                 BlockChainModel.insertMany(chainData).catch(error => {
                     console.log(error);

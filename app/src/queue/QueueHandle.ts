@@ -1,5 +1,5 @@
 import {RabbitMQConnector} from "../config/messeneger.js";
-import {BrokerInterface} from "../config/BrokerInterface.js"
+import {BrokerInterface} from "../config/BrokerInterface.js";
 
 class QueueHandle {
     queue: BrokerInterface;
@@ -28,4 +28,4 @@ class QueueHandle {
 
 const handle: QueueHandle = new QueueHandle(RabbitMQConnector);
 
-export {handle as QueueHandle}
+export {handle as QueueHandle};

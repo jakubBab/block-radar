@@ -17,4 +17,4 @@ export class TransactionLogTransformer implements DataTransformerInterface {
         };
     }
 
-};
+}

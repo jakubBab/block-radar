@@ -76,7 +76,7 @@ export class BlockchainDataFetcher {
     }
 
     getRpcData(blockNumber) {
-        let data = this.rpcData;
+        const data = this.rpcData;
         data.params = [Converter.decimalToHex(blockNumber), true];
 
         return data;
