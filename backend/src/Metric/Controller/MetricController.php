@@ -24,7 +24,6 @@ class MetricController extends AbstractController
             return new JsonResponse('Query parameter "walletAddress" not found. Please set wallet address');
         }
 
-
         return new JsonResponse($metric->walletMetrics($walletAddress));
     }
 }

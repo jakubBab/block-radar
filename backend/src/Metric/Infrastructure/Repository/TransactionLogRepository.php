@@ -7,6 +7,7 @@ namespace App\Metric\Infrastructure\Repository;
 use App\Metric\Infrastructure\Dto\MetricNumber;
 use App\Shared\Database\Contract\DatabaseManagerInterface;
 use App\Shared\Database\MongoConnection;
+use MongoDB\Model\BSONArray;
 use MongoDB\Model\BSONDocument;
 
 class TransactionLogRepository
@@ -18,7 +19,12 @@ class TransactionLogRepository
     {
     }
 
-    public function getCountOfAddressesInteractingWith(string $walletAddress): MetricNumber
+
+    /**
+     * @param string $walletAddress
+     * @return array{'total' : MetricNumber, 'unique' : MetricNumber}
+     */
+    public function walletMetrics(string $walletAddress): array
     {
         $collection = $this->manager
             ->getClient()
@@ -29,49 +35,55 @@ class TransactionLogRepository
 
         $pipeline = [
             [
-                '$match' => [
-                    'addressTo' => $walletAddress,
-                ],
-            ],
-            [
-                '$group' => [
-                    '_id' => '$addressFrom',
-                ],
-            ],
-            [
-                '$group' => [
-                    '_id' => null,
-                    'count' => ['$sum' => 1],
-                ],
-            ],
+                '$facet' => [
+                    'interactingAddresses' => [
+                        [
+                            '$match' => [
+                                'addressTo' => $walletAddress
+                            ]
+                        ],
+                        [
+                            '$group' => [
+                                '_id' => '$addressFrom',
+                                'count' => ['$sum' => 1]
+                            ]
+                        ],
+                        [
+                            '$group' => [
+                                '_id' => null,
+                                'totalTransactions' => ['$sum' => '$count'],
+                                'uniqueTransactions' => ['$sum' => ['$cond' => [['$gt' => ['$count', 0]], 1, 0]]]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
         ];
+
+        $container = [
+            'total' => new MetricNumber(0),
+            'unique' => new MetricNumber(0)
+        ];
+
 
         /** @phpstan-ignore-next-line */
         $result = $collection->aggregate($pipeline)->toArray();
-
         if (empty($result)) {
-            return new MetricNumber(0);
+            return $container;
         }
+
         /** @var BSONDocument $result */
         $result = $result[0]->getArrayCopy();
+        /** @var BSONArray $result */
+        $result = $result['interactingAddresses'];
 
-        return new MetricNumber($result['count']);
-    }
+        foreach ($result as $value) {
+            $container['total'] = new MetricNumber($value->totalTransactions);
+            $container['unique'] = new MetricNumber($value->uniqueTransactions);
+        }
 
-    public function getCountOfAddresses(string $walletAddress): MetricNumber
-    {
-        $collection = $this->manager
-            ->getClient()
-            ->selectCollection(
-                $this->manager->getDatabase(),
-                self::COLLECTION_NAME
-            );
 
-        $filter = [
-            'addressTo' => $walletAddress,
-        ];
-
-        return new MetricNumber($collection->countDocuments($filter));
+        return $container;
     }
 
     public function all(): MetricNumber

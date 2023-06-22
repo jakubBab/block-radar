@@ -75,7 +75,7 @@ To get started, follow the instructions below:
 
    * Start PM2 with pre-defined configuration 
         ```bash
-      pm2 start ecosystem.config.js
+      pm2 start ecosystem.config.cjs
 
    * Start index.js
         ```bash
@@ -119,7 +119,7 @@ composer run style   [ Code styles ]
 Node container
 ```php
 npx eslint
-pm2 start <configuration-file><default: ecosystem.config.js>
+pm2 start <configuration-file><default: ecosystem.config.cjs>
 pm2 monit [starts monitoring tool inside the container]
 pm2 stop all [stops all nodes]
 pm2 restart all [restart all nodes]
