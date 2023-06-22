@@ -15,9 +15,12 @@ class Metric
 
     public function walletMetrics(string $walletAddress): object
     {
+
+        $walletMetrics = $this->repository->walletMetrics($walletAddress);
+
         return new MetricResponse(
-            $this->repository->getCountOfAddresses($walletAddress)->value,
-            $this->repository->getCountOfAddressesInteractingWith($walletAddress)->value,
+            $walletMetrics['total']->value,
+            $walletMetrics['unique']->value,
             $this->repository->all()->value
         );
     }
